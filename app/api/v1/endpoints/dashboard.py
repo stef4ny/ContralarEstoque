@@ -34,20 +34,22 @@ def dashboard():
 
     return """
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
+  <meta charset="UTF-8" />
+  <title>Antecipação de Riscos de Ruptura</title>
 
-  <title>Estoque Vivo</title>
   <style>
     body {
       margin: 0;
       font-family: "Segoe UI", Arial, sans-serif;
-      background: #f2f4f8;
-      color: #333;
+      background: #f4f6f8;
+      color: #1f2937;
     }
 
+    /* HEADER */
     .header {
-      background: linear-gradient(90deg, #1e3c72, #2a5298);
+      background: linear-gradient(90deg, #1e3a8a, #2563eb);
       color: white;
       padding: 20px 30px;
       font-size: 22px;
@@ -55,94 +57,162 @@ def dashboard():
     }
 
     .container {
-      padding: 24px 30px;
+      padding: 30px;
     }
 
+    /* KPI CARDS */
     .kpis {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 24px;
+      gap: 20px;
+      margin-bottom: 30px;
     }
 
     .kpi {
       background: white;
-      border-radius: 8px;
-      padding: 16px;
-      box-shadow: 0 2px 6px rgba(0,0,0,.08);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
 
     .kpi span {
-      font-size: 13px;
-      color: #666;
+      font-size: 14px;
+      color: #6b7280;
     }
 
     .kpi strong {
-      font-size: 26px;
       display: block;
-      margin-top: 6px;
+      font-size: 28px;
+      margin-top: 5px;
     }
 
-    .content {
+    /* GRID PRINCIPAL */
+    .main-grid {
       display: grid;
-      grid-template-columns: 2fr 3fr;
+      grid-template-columns: 1.2fr 1fr;
       gap: 20px;
-      margin-bottom: 24px;
+      margin-bottom: 30px;
     }
 
     .card {
       background: white;
-      border-radius: 8px;
       padding: 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,.08);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
 
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    /* TABELA */
     table {
       width: 100%;
       border-collapse: collapse;
     }
 
     th, td {
-      padding: 10px;
+      padding: 12px;
+      border-bottom: 1px solid #e5e7eb;
       text-align: left;
-      border-bottom: 1px solid #eee;
     }
 
     th {
+      color: #6b7280;
       font-size: 13px;
-      color: #555;
+      text-transform: uppercase;
     }
 
-    .risk-high {
-      background: #d32f2f;
-      color: white;
-      padding: 4px 8px;
-      border-radius: 4px;
+    .badge {
+      padding: 6px 10px;
+      border-radius: 6px;
       font-size: 12px;
+      font-weight: bold;
+      color: white;
     }
 
-    .actions {
-      display: flex;
-      gap: 12px;
+    .alto {
+      background: #dc2626;
     }
 
     .btn {
-      padding: 10px 14px;
+      padding: 8px 14px;
       border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
     }
 
-    .btn-primary {
-      background: #2e7d32;
-      color: white;
+    /* AÇÕES */
+    .actions {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
     }
 
-    .btn-secondary {
-      background: #1565c0;
+    .action-btn {
+      padding: 12px 18px;
+      border-radius: 8px;
       color: white;
+      text-decoration: none;
+      font-weight: 500;
     }
+
+    .green { background: #16a34a; }
+    .blue { background: #2563eb; }
+
+    /* INDICADORES */
+    .indicators {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .indicator {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .indicator strong {
+      font-size: 26px;
+      display: block;
+      margin-top: 8px;
+    }
+
+    .causas-acoes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.causas-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.causas-lista li {
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.causas-lista li:last-child {
+  border-bottom: none;
+}
+
+
+
+
   </style>
 </head>
 
@@ -156,48 +226,85 @@ def dashboard():
 
     <!-- KPIs -->
     <div class="kpis">
-      <div class="kpi"><span>Alertas de Risco</span><strong>5</strong></div>
-      <div class="kpi"><span>Itens de Estoque Monitorados</span><strong>25</strong></div>
+      <div class="kpi"><span>Alertas de Risco</span><strong>15</strong></div>
+      <div class="kpi"><span>Itens Monitorados</span><strong>320</strong></div>
       <div class="kpi"><span>Pedidos Pendentes</span><strong>78</strong></div>
-      <div class="kpi"><span>Previsão de baixa de estoque</span><strong>3 dias</strong></div>
+      <div class="kpi"><span>Previsão de Ruptura</span><strong>9 dias</strong></div>
     </div>
 
-    <!-- Conteúdo principal -->
-    <div class="content">
+    <!-- GRID PRINCIPAL -->
+    <div class="main-grid">
 
       <div class="card">
-        <h3>📊 Previsão de Ruptura</h3>
+        <h3>📊 Gráfico de Previsão de Ruptura</h3>
         <p>(Gráfico entra aqui depois)</p>
       </div>
 
       <div class="card">
         <h3>🚨 Riscos Prioritários</h3>
-        <table>
-          <tr>
-            <th>Item de Estoque</th>
-            <th>Produto</th>
-            <th>Risco</th>
-            <th>Ação</th>
-          </tr>
-          <tr>
-            <td>20</td>
-            <td>Fone de Ouvido ELG EP12BK com Fio e Microfone Preto</td>
-            <td><span class="risk-high">ALTO • Ação imediata</span></td>
-            <td><button class="btn btn-secondary">Detalhes</button></td>
-          </tr>
-        </table>
-      </div>
 
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Produto</th>
+              <th>Risco</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>20</td>
+              <td>Fone de Ouvido ELG EP12BK</td>
+              <td><span class="badge alto">ALTO</span></td>
+              <td><a class="btn" href="#">Ver Detalhes</a></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
     </div>
 
-    <!-- Ações -->
+   <div class="causas-acoes">
+<div class="card" style="margin-bottom: 30px;">
+  <h3>🧠 Análise de Causas Prováveis</h3>
+
+  <ul class="causas-lista">
+    <li style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #e5e7eb;">
+      📈 <span>Demanda acima do esperado</span>
+    </li>
+    <li style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #e5e7eb;">
+      🚚 <span>Atraso no fornecimento</span>
+    </li>
+    <li style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #e5e7eb;">
+      🔄 <span>Falha no reabastecimento</span>
+    </li>
+    <li style="display:flex;align-items:center;gap:10px;padding:10px 0;">
+      ⚠️ <span>Problemas logísticos</span>
+    </li>
+  </ul>
+</div>
+
+
+    
     <div class="card">
+
       <h3>⚙️ Sugestões de Ação</h3>
       <div class="actions">
-      <a href="/acoes/aumentar-pedido?item=20" class="btn green">Aumentar Pedido</a>
-        <button class="btn btn-secondary">Realocar Estoque</button>
-        <button class="btn btn-secondary">Negociar com Fornecedor</button>
+        <a class="action-btn green" href="#">Aumentar Pedido</a>
+        <a class="action-btn blue" href="#">Realocar Estoque</a>
+        <a class="action-btn blue" href="#">Negociar com Fornecedor</a>
       </div>
+    </div>
+    </div>
+
+
+    <!-- INDICADORES -->
+    <div class="indicators">
+      <div class="indicator"><span>Cobertura de Estoque</span><strong>4 dias</strong></div>
+      <div class="indicator"><span>Nível de Serviço</span><strong>92%</strong></div>
+      <div class="indicator"><span>Pedidos Atrasados</span><strong>23</strong></div>
+      <div class="indicator"><span>ROF</span><strong>34%</strong></div>
     </div>
 
   </div>
@@ -205,7 +312,6 @@ def dashboard():
 </body>
 </html>
 """
-
 
 db = SessionLocal()
 contagem = contar_riscos(db)
