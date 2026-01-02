@@ -2,6 +2,9 @@ from sqlalchemy.orm import Session
 from app.infra.models import RiscoRuptura
 from app.infra.models import RiscoRuptura
 
+from sqlalchemy import func, case
+from app.infra.models import RiscoRuptura
+
 def salvar_risco(
     db: Session,
     sku: str,
@@ -42,3 +45,18 @@ def buscar_alertas_recentes(db, limite: int = 10):
         .limit(limite)
         .all()
     )
+
+def contar_riscos(db):
+    return {
+        "alto": db.query(RiscoRuptura)
+            .filter(RiscoRuptura.risco >= 0.8)
+            .count(),
+
+        "medio": db.query(RiscoRuptura)
+            .filter(RiscoRuptura.risco >= 0.5, RiscoRuptura.risco < 0.8)
+            .count(),
+
+        "baixo": db.query(RiscoRuptura)
+            .filter(RiscoRuptura.risco < 0.5)
+            .count()
+    }

@@ -1,5 +1,9 @@
+from app.infra.database import SessionLocal
 from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
+
+from app.infra.repositories import buscar_alertas_recentes, contar_riscos
+
 
 router = APIRouter()
 
@@ -7,10 +11,32 @@ router = APIRouter()
 
 @router.get("/dashboard", response_class=HTMLResponse)
 def dashboard():
+    
+    db = SessionLocal()
+    contagem = contar_riscos(db)
+    alertas = buscar_alertas_recentes(db)
+    db.close()
+
+
+    if not alertas:
+        alertas_html = "<p class='ok'>Nenhum risco crítico no momento.</p>"
+    else:
+        alertas_html = "".join(
+            f"""
+            <div class="alert-item">
+                <strong>Item {a.sku}</strong>
+                <span>Risco {a.risco:.2f}</span>
+                <small>{a.criado_em.strftime('%H:%M:%S')}</small>
+            </div>
+            """
+            for a in alertas
+        )
+
     return """
 <!DOCTYPE html>
 <html>
 <head>
+
   <title>Estoque Vivo</title>
   <style>
     body {
@@ -133,7 +159,7 @@ def dashboard():
       <div class="kpi"><span>Alertas de Risco</span><strong>5</strong></div>
       <div class="kpi"><span>Itens de Estoque Monitorados</span><strong>25</strong></div>
       <div class="kpi"><span>Pedidos Pendentes</span><strong>78</strong></div>
-      <div class="kpi"><span>Previsão de Ruptura</span><strong>3 dias</strong></div>
+      <div class="kpi"><span>Previsão de baixa de estoque</span><strong>3 dias</strong></div>
     </div>
 
     <!-- Conteúdo principal -->
@@ -156,7 +182,7 @@ def dashboard():
           <tr>
             <td>20</td>
             <td>Fone de Ouvido ELG EP12BK com Fio e Microfone Preto</td>
-            <td><span class="risk-high">ALTO</span></td>
+            <td><span class="risk-high">ALTO • Ação imediata</span></td>
             <td><button class="btn btn-secondary">Detalhes</button></td>
           </tr>
         </table>
@@ -168,7 +194,7 @@ def dashboard():
     <div class="card">
       <h3>⚙️ Sugestões de Ação</h3>
       <div class="actions">
-        <button class="btn btn-primary">Aumentar Pedido</button>
+      <a href="/acoes/aumentar-pedido?item=20" class="btn green">Aumentar Pedido</a>
         <button class="btn btn-secondary">Realocar Estoque</button>
         <button class="btn btn-secondary">Negociar com Fornecedor</button>
       </div>
@@ -179,3 +205,10 @@ def dashboard():
 </body>
 </html>
 """
+
+
+db = SessionLocal()
+contagem = contar_riscos(db)
+alertas = buscar_alertas_recentes(db)
+db.close()
+
