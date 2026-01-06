@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api.v1.endpoints import dashboard, health, estoque
+from app.api.v1.endpoints import acoes, dashboard, health, estoque, itens
 
 from app.infra.database import Base, engine
 from app.infra import models
@@ -12,6 +12,9 @@ app = FastAPI(title="Estoque Vivo MVP")
 app.include_router(health.router)
 app.include_router(estoque.router)
 app.include_router(dashboard.router)
+app.include_router(acoes.router)
+app.include_router(itens.router)
+
 
 Base.metadata.create_all(bind=engine)
 

@@ -39,6 +39,8 @@ def dashboard():
   <meta charset="UTF-8" />
   <title>Antecipação de Riscos de Ruptura</title>
 
+   <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
   <style>
     body {
       margin: 0;
@@ -47,7 +49,7 @@ def dashboard():
       color: #1f2937;
     }
 
-    /* HEADER */
+    
     .header {
       background: linear-gradient(90deg, #1e3a8a, #2563eb);
       color: white;
@@ -60,7 +62,7 @@ def dashboard():
       padding: 30px;
     }
 
-    /* KPI CARDS */
+    
     .kpis {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -86,7 +88,7 @@ def dashboard():
       margin-top: 5px;
     }
 
-    /* GRID PRINCIPAL */
+    
     .main-grid {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
@@ -107,7 +109,7 @@ def dashboard():
       font-size: 18px;
     }
 
-    /* TABELA */
+    
     table {
       width: 100%;
       border-collapse: collapse;
@@ -211,6 +213,56 @@ def dashboard():
 }
 
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; 
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+th {
+  font-size: 13px;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+
+td {
+  font-size: 14px;
+}
+
+.col-item { width: 10%; }
+.col-produto { width: 45%; }
+.col-risco { width: 15%; }
+.col-ruptura { width: 18%; }
+.col-acao { width: 20%; }
+
+
+.badge {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  display: inline-block;
+}
+
+.alto {
+  background: #dc2626;
+}
+
+.btn {
+  background: #2563eb;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+}
 
 
   </style>
@@ -243,24 +295,31 @@ def dashboard():
       <div class="card">
         <h3>🚨 Riscos Prioritários</h3>
 
-        <table>
-          <thead>
+     <table>
+      <thead>
             <tr>
-              <th>Item</th>
-              <th>Produto</th>
-              <th>Risco</th>
-              <th>Ação</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>20</td>
-              <td>Fone de Ouvido ELG EP12BK</td>
-              <td><span class="badge alto">ALTO</span></td>
-              <td><a class="btn" href="#">Ver Detalhes</a></td>
-            </tr>
-          </tbody>
-        </table>
+                <th class="col-item">Item</th>
+                <th class="col-produto">Produto</th>
+                <th class="col-risco">Risco</th>
+                <th class="col-ruptura">Est. de Ruptura</th>
+                <th class="col-acao">Ação</th>
+             </tr>
+        </thead>
+         <tbody>
+                <tr>
+                 <td>20</td>
+                <td>Fone de Ouvido ELG EP12BK</td>
+                <td>
+               <span class="badge alto">ALTO</span>
+               </td>
+                <td>Em 3 dias</td>
+               <td>
+               <a class="btn" href="/itens/20">Ver Detalhes</a>
+              </td>
+              </tr>
+         </tbody>
+      </table>
+
 
       </div>
     </div>
@@ -291,9 +350,9 @@ def dashboard():
 
       <h3>⚙️ Sugestões de Ação</h3>
       <div class="actions">
-        <a class="action-btn green" href="#">Aumentar Pedido</a>
-        <a class="action-btn blue" href="#">Realocar Estoque</a>
-        <a class="action-btn blue" href="#">Negociar com Fornecedor</a>
+        <a class="action-btn green" href="/acoes/aumentar-pedido/20">Aumentar Pedido</a>   
+        <a class="action-btn blue" href="/acoes/realocar-estoque/20">Realocar Estoque</a>
+        <a class="action-btn blue" href="/acoes/negociar-fornecedor/20">Negociar com Fornecedor</a>
       </div>
     </div>
     </div>
