@@ -98,7 +98,7 @@ def dashboard():
 
     .card {
       background: white;
-      padding: 20px;
+      padding: 30px;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
@@ -170,12 +170,12 @@ def dashboard():
     .indicators {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
+      gap: 30px;
     }
 
     .indicator {
       background: white;
-      padding: 20px;
+      padding: 30px;
       border-radius: 10px;
       text-align: center;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08);
@@ -352,7 +352,7 @@ td {
       <div class="actions">
         <a class="action-btn green" href="/acoes/aumentar-pedido/20">Aumentar Pedido</a>   
         <a class="action-btn blue" href="/acoes/realocar-estoque/20">Realocar Estoque</a>
-        <a class="action-btn blue" href="/acoes/negociar-fornecedor/20">Negociar com Fornecedor</a>
+       <a href="/acoes/negociar-fornecedor/20" class="btn btn-secondary"> Negociar com Fornecedor</a
       </div>
     </div>
     </div>

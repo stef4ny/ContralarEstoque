@@ -108,9 +108,7 @@ def detalhes_item(item_id: int):
           <div class="section">
             <h3>🕒 Histórico do Item</h3>
             <ul>
-              #linhas_historico
-
-              
+              {linhas}
             </ul>
           </div>
 
@@ -120,4 +118,4 @@ def detalhes_item(item_id: int):
       </body>
     </html>
     """
-    linhas_historico = ""
+ 
