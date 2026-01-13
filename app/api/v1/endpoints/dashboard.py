@@ -49,6 +49,8 @@ def dashboard():
       color: #1f2937;
     }
 
+   
+
     
     .header {
       background: linear-gradient(90deg, #1e3a8a, #2563eb);
@@ -151,7 +153,7 @@ def dashboard():
     /* AÇÕES */
     .actions {
       display: flex;
-      gap: 15px;
+      gap: 35px;
       margin-bottom: 30px;
     }
 
@@ -170,13 +172,13 @@ def dashboard():
     .indicators {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 30px;
+      gap: 35px;
     }
 
     .indicator {
       background: white;
-      padding: 30px;
-      border-radius: 10px;
+      padding: 20px;
+      border-radius: 30px;
       text-align: center;
       box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
@@ -248,8 +250,20 @@ td {
   font-size: 12px;
   font-weight: 600;
   color: white;
-  display: inline-block;
 }
+
+.badge.alto {
+  background: #dc2626; /* vermelho */
+}
+
+.badge.medio {
+  background: #f59e0b; /* amarelo */
+}
+
+.badge.baixo {
+  background: #16a34a; /* verde */
+}
+
 
 .alto {
   background: #dc2626;
@@ -278,11 +292,39 @@ td {
 
     <!-- KPIs -->
     <div class="kpis">
-      <div class="kpi"><span>Alertas de Risco</span><strong>15</strong></div>
-      <div class="kpi"><span>Itens Monitorados</span><strong>320</strong></div>
-      <div class="kpi"><span>Pedidos Pendentes</span><strong>78</strong></div>
-      <div class="kpi"><span>Previsão de Ruptura</span><strong>9 dias</strong></div>
+  <div class="kpi">
+    <div class="kpi-header">
+      <span class="icon">🚨</span>
+      <span>Alertas de Risco</span>
     </div>
+    <strong>{alertas_risco}</strong>
+  </div>
+
+  <div class="kpi">
+    <div class="kpi-header">
+      <span class="icon">📦</span>
+      <span>Itens Monitorados</span>
+    </div>
+    <strong>{itens_monitorados}</strong>
+  </div>
+
+  <div class="kpi">
+    <div class="kpi-header">
+      <span class="icon">📝</span>
+      <span>Pedidos Pendentes</span>
+    </div>
+    <strong>{pedidos_pendentes}</strong>
+  </div>
+
+  <div class="kpi">
+    <div class="kpi-header">
+      <span class="icon">⏳</span>
+      <span>Previsão de Ruptura</span>
+    </div>
+    <strong>{previsao_ruptura} dias</strong>
+  </div>
+</div>
+
 
     <!-- GRID PRINCIPAL -->
     <div class="main-grid">
@@ -306,20 +348,39 @@ td {
              </tr>
         </thead>
          <tbody>
-                <tr>
-                 <td>20</td>
-                <td>Fone de Ouvido ELG EP12BK</td>
-                <td>
-               <span class="badge alto">ALTO</span>
-               </td>
-                <td>Em 3 dias</td>
-               <td>
-               <a class="btn" href="/itens/20">Ver Detalhes</a>
-              </td>
-              </tr>
-         </tbody>
-      </table>
+  <tr>
+    <td>20</td>
+    <td>Fone de Ouvido ELG EP12BK</td>
+    <td><span class="badge alto">ALTO</span></td>
+    <td>Em 3 dias</td>
+    <td><a class="btn" href="/itens/20">Ver Detalhes</a></td>
+  </tr>
 
+  <tr>
+    <td>34</td>
+    <td>Mochila Executiva Preta</td>
+    <td><span class="badge alto">ALTO</span></td>
+    <td>Em 1 dia</td>
+    <td><a class="btn" href="/itens/34">Ver Detalhes</a></td>
+  </tr>
+
+  <tr>
+    <td>52</td>
+    <td>Teclado Mecânico Gamer</td>
+    <td><span class="badge medio">MÉDIO</span></td>
+    <td>Em 5 dias</td>
+    <td><a class="btn" href="/itens/52">Ver Detalhes</a></td>
+  </tr>
+
+  <tr>
+    <td>78</td>
+    <td>Mouse Óptico Sem Fio</td>
+    <td><span class="badge baixo">BAIXO</span></td>
+    <td>Em 12 dias</td>
+    <td><a class="btn" href="/itens/78">Ver Detalhes</a></td>
+  </tr>
+</tbody>
+      </table>
 
       </div>
     </div>
@@ -352,7 +413,8 @@ td {
       <div class="actions">
         <a class="action-btn green" href="/acoes/aumentar-pedido/20">Aumentar Pedido</a>   
         <a class="action-btn blue" href="/acoes/realocar-estoque/20">Realocar Estoque</a>
-       <a href="/acoes/negociar-fornecedor/20" class="btn btn-secondary"> Negociar com Fornecedor</a
+        <a href="/acoes/negociar-fornecedor/20" class="action-btn blue"> Negociar com Fornecedor</a>
+        <a href="" class="action-btn blue"> Ajustar Previsão</a
       </div>
     </div>
     </div>
